@@ -17,6 +17,8 @@ input.onButtonPressed(Button.A, function () {
     } else {
         if (card == previous) {
             basic.showNumber(card)
+            basic.pause(200)
+            basic.showString("draw")
             pre = 0
             previous = card
         } else {
@@ -51,10 +53,13 @@ input.onButtonPressed(Button.B, function () {
     } else {
         if (previous == card) {
             basic.showNumber(card)
+            basic.pause(200)
+            basic.showString("draw")
             pre = 0
             previous = card
         } else {
             basic.showString("lose")
+            pre = 0
         }
     }
 })
