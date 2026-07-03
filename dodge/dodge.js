@@ -5,10 +5,10 @@ function appearEnemy () {
     start = 0
     if (quantity == 1) {
         enemy1 = game.createSprite(4, locate)
-        basic.pause(500)
+        basic.pause(300)
         for (let index = 0; index < 4; index++) {
             enemy1.change(LedSpriteProperty.X, -1)
-            basic.pause(200)
+            basic.pause(120)
         }
         enemy1.delete()
         start = 1
@@ -40,7 +40,11 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 function end () {
+    enemy2.delete()
+    enemy1.delete()
+    スプライト.delete()
     basic.showNumber(score)
+    finish = 1
 }
 input.onButtonPressed(Button.AB, function () {
     start = 1
@@ -73,6 +77,7 @@ function deathCheck () {
     	
     }
 }
+let finish = 0
 let locate2 = 0
 let score = 0
 let locate = 0
@@ -88,11 +93,14 @@ enemy2 = game.createSprite(5, 5)
 enemy1 = game.createSprite(5, 5)
 gameover = 0
 basic.forever(function () {
-    if (gameover == 1) {
-        end()
-    } else {
-        if (start == 1) {
-            appearEnemy()
+    if (finish == 0) {
+        if (gameover == 1) {
+            end()
+        } else {
+            if (start == 1) {
+                appearEnemy()
+                deathCheck()
+            }
         }
     }
 })
