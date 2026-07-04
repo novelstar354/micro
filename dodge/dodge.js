@@ -35,8 +35,6 @@ function appearEnemy () {
         if (gameover == 0) {
             score += 5
         }
-    } else {
-    	
     }
 }
 input.onButtonPressed(Button.A, function () {
@@ -124,8 +122,6 @@ function deathCheck () {
                 enemy2.delete()
             }
         }
-    } else {
-    	
     }
 }
 let スプライト: game.LedSprite = null
