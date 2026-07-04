@@ -1,15 +1,3 @@
-let quantity = 0
-let locate = 0
-let locate2 = 0
-let speed = 0
-let wait = 0
-let start = 0
-let enemy1: game.LedSprite = null
-let gameover = 0
-let score = 0
-let enemy2: game.LedSprite = null
-let スプライト: game.LedSprite = null
-let finish = 0
 function appearEnemy () {
     basic.pause(100)
     quantity = randint(1, 2)
@@ -64,13 +52,24 @@ function end () {
     enemy1.delete()
     スプライト.delete()
     basic.showNumber(score)
+    basic.clearScreen()
     finish = 1
+    pushCheck = 0
 }
 input.onGesture(Gesture.Shake, function () {
-    reset()
+    if (pushCheck == 0) {
+        reset()
+    } else {
+        start = 1
+    }
 })
 input.onButtonPressed(Button.AB, function () {
-    start = 1
+    if (pushCheck == 0) {
+        reset()
+        pushCheck = 1
+    } else {
+        start = 1
+    }
 })
 input.onButtonPressed(Button.B, function () {
     if (スプライト.get(LedSpriteProperty.Y) == 4) {
@@ -117,6 +116,20 @@ function deathCheck () {
     	
     }
 }
+let finish = 0
+let スプライト: game.LedSprite = null
+let enemy2: game.LedSprite = null
+let score = 0
+let gameover = 0
+let enemy1: game.LedSprite = null
+let start = 0
+let wait = 0
+let speed = 0
+let locate2 = 0
+let locate = 0
+let quantity = 0
+let pushCheck = 0
+pushCheck = 0
 basic.forever(function () {
     if (finish == 0) {
         if (gameover == 1) {
