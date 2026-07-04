@@ -40,21 +40,27 @@ function appearEnemy () {
     }
 }
 input.onButtonPressed(Button.A, function () {
-    if (スプライト.get(LedSpriteProperty.Y) == 0) {
-        スプライト.delete()
-        スプライト = game.createSprite(0, 1)
+    if (gameover == 1) {
+        basic.clearScreen()
+        finish = 1
+        pushCheck = 0
     } else {
-        スプライト.change(LedSpriteProperty.Y, 1)
+        if (スプライト.get(LedSpriteProperty.Y) == 0) {
+            スプライト.delete()
+            スプライト = game.createSprite(0, 1)
+        } else {
+            スプライト.change(LedSpriteProperty.Y, 1)
+        }
     }
 })
 function end () {
     enemy2.delete()
     enemy1.delete()
     スプライト.delete()
-    basic.showNumber(score)
-    basic.clearScreen()
-    finish = 1
-    pushCheck = 0
+    while (finish != 1) {
+        basic.showNumber(score)
+        basic.clearScreen()
+    }
 }
 input.onGesture(Gesture.Shake, function () {
     if (pushCheck == 0) {
@@ -72,11 +78,17 @@ input.onButtonPressed(Button.AB, function () {
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (スプライト.get(LedSpriteProperty.Y) == 4) {
-        スプライト.delete()
-        スプライト = game.createSprite(0, 3)
+    if (gameover == 1) {
+        basic.clearScreen()
+        finish = 1
+        pushCheck = 0
     } else {
-        スプライト.change(LedSpriteProperty.Y, -1)
+        if (スプライト.get(LedSpriteProperty.Y) == 4) {
+            スプライト.delete()
+            スプライト = game.createSprite(0, 3)
+        } else {
+            スプライト.change(LedSpriteProperty.Y, -1)
+        }
     }
 })
 function reset () {
@@ -116,8 +128,8 @@ function deathCheck () {
     	
     }
 }
-let finish = 0
 let スプライト: game.LedSprite = null
+let finish = 0
 let enemy2: game.LedSprite = null
 let score = 0
 let gameover = 0
