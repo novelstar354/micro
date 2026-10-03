@@ -41,9 +41,12 @@ function moveCactus () {
 // Aボタン
 // ==========================
 input.onButtonPressed(Button.A, function () {
-    if (!(gameStarted)) {
-        basic.pause(200)
-        gameStarted = true
+    if (!(highScoreDisplay)) {
+        if (!(gameStarted)) {
+            basic.pause(200)
+            gameStarted = true
+            init()
+        }
     }
 })
 // ==========================
@@ -67,6 +70,22 @@ function deleteCactus () {
         cactus4 = null
     }
 }
+function init () {
+    speed = 160
+    gameOver = false
+    jumping = false
+}
+input.onGesture(Gesture.Shake, function () {
+    if (!(gameStarted)) {
+        if (!(highScoreDisplay)) {
+            highScoreDisplay = true
+            basic.showNumber(highScore)
+            basic.pause(100)
+            basic.clearScreen()
+            highScoreDisplay = false
+        }
+    }
+})
 // ==========================
 // ジャンプ
 // ==========================
@@ -93,9 +112,16 @@ function playerJump () {
 // A+B：ジャンプ
 // ==========================
 input.onButtonPressed(Button.AB, function () {
-    if (gameStarted && !(gameOver)) {
-        if (jumping != true) {
-            playerJump()
+    if (!(highScoreDisplay)) {
+        if (gameStarted && !(gameOver)) {
+            if (jumping != true) {
+                playerJump()
+            }
+        }
+        if (!(gameStarted)) {
+            basic.pause(200)
+            gameStarted = true
+            init()
         }
     }
 })
@@ -103,9 +129,12 @@ input.onButtonPressed(Button.AB, function () {
 // Bボタン
 // ==========================
 input.onButtonPressed(Button.B, function () {
-    basic.pause(200)
-    if (!(gameStarted)) {
-        gameStarted = true
+    if (!(highScoreDisplay)) {
+        basic.pause(200)
+        if (!(gameStarted)) {
+            gameStarted = true
+            init()
+        }
     }
 })
 // ==========================
@@ -129,7 +158,10 @@ function makeCactus () {
         cactus4 = game.createSprite(3, 3)
     }
 }
+let score = 0
 let _type = 0
+let highScore = 0
+let highScoreDisplay = false
 let jumping = false
 let gameOver = false
 let gameStarted = false
@@ -139,6 +171,11 @@ let cactus2: game.LedSprite = null
 let cactus3: game.LedSprite = null
 let cactus4: game.LedSprite = null
 let player: game.LedSprite = null
+let cactus12 = null
+let cactus22 = null
+let cactus32 = null
+let cactus42 = null
+let player2 = null
 speed = 160
 // ==========================
 // 初期化
@@ -146,7 +183,10 @@ speed = 160
 gameStarted = false
 gameOver = false
 jumping = false
-let score = 0
+highScoreDisplay = false
+if (!(highScore != 0)) {
+    highScore = 0
+}
 // ==========================
 // メインゲーム
 // ==========================
@@ -175,5 +215,8 @@ basic.forever(function () {
         gameOver = false
         speed = 160
         basic.showNumber(score)
+        if (highScore < score) {
+            highScore = score
+        }
     }
 })
