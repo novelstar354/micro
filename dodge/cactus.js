@@ -92,21 +92,37 @@ input.onGesture(Gesture.Shake, function () {
 function playerJump () {
     if (jumping || gameOver) {
         return
+    } else {
+        jumping = true
+        if (_type == 4) {
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(130)
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(140)
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(150)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(150)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(140)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(130)
+        } else {
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(110)
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(125)
+            player.change(LedSpriteProperty.Y, -1)
+            basic.pause(150)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(150)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(125)
+            player.change(LedSpriteProperty.Y, 1)
+            basic.pause(110)
+        }
+        jumping = false
     }
-    jumping = true
-    player.change(LedSpriteProperty.Y, -1)
-    basic.pause(100)
-    player.change(LedSpriteProperty.Y, -1)
-    basic.pause(150)
-    player.change(LedSpriteProperty.Y, -1)
-    basic.pause(200)
-    player.change(LedSpriteProperty.Y, 1)
-    basic.pause(200)
-    player.change(LedSpriteProperty.Y, 1)
-    basic.pause(150)
-    player.change(LedSpriteProperty.Y, 1)
-    basic.pause(100)
-    jumping = false
 }
 // ==========================
 // A+B：ジャンプ
@@ -166,16 +182,16 @@ let jumping = false
 let gameOver = false
 let gameStarted = false
 let speed = 0
-let cactus1: game.LedSprite = null
-let cactus2: game.LedSprite = null
-let cactus3: game.LedSprite = null
-let cactus4: game.LedSprite = null
-let player: game.LedSprite = null
-let cactus12 = null
-let cactus22 = null
-let cactus32 = null
-let cactus42 = null
 let player2 = null
+let cactus42 = null
+let cactus32 = null
+let cactus22 = null
+let cactus12 = null
+let player: game.LedSprite = null
+let cactus4: game.LedSprite = null
+let cactus3: game.LedSprite = null
+let cactus2: game.LedSprite = null
+let cactus1: game.LedSprite = null
 speed = 160
 // ==========================
 // 初期化
@@ -214,6 +230,14 @@ basic.forever(function () {
         gameStarted = false
         gameOver = false
         speed = 160
+        basic.showLeds(`
+            # # . # #
+            # # . # #
+            . . . . .
+            . # # # .
+            # . . . #
+            `)
+        basic.pause(2000)
         basic.showNumber(score)
         if (highScore < score) {
             highScore = score
